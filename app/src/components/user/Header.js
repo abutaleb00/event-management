@@ -5,7 +5,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 const Header = () => {
   return (
-    <div className="container-fluid">
+    <div className="container">
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <Link className="navbar-brand" to="/">
           Events POC
@@ -21,7 +21,7 @@ const Header = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div className="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
           <div className="navbar-nav">
             <Link className="nav-item nav-link" to="/">
               Home
@@ -36,6 +36,12 @@ const Header = () => {
               Register
             </Link>
           </div>
+        </div>
+        <div>
+        <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
         </div>
       </nav>
     </div>
