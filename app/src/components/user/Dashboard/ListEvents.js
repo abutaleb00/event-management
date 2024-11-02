@@ -23,7 +23,7 @@ const EventList = (props) => {
           if (res.success === true) {
             setUserAuth(res.success);
           } else {
-            localStorage.removeItem("token");
+            // localStorage.removeItem("token");
             console.log("responseNotTrue");
             navigate("/login");
           }
@@ -47,7 +47,7 @@ const EventList = (props) => {
 
   const listview = listOfEvents.map((event, i) => {
     return (
-      <div className="col-md-6 p-2 mb-2" key={i}>
+      <div className="col-md-12 p-2 mb-2" key={i}>
         <div className="border border-primary rounded p-3 shadow-sm">
           <h3>{event.event_name}</h3>
           <p>{event.event_description}</p>

@@ -10,6 +10,7 @@ import MyProfile from "./components/user/Dashboard/MyProfile.js";
 import LogoutUser from "./components/user/Dashboard/Logout.js";
 import EventDetails from "./components/user/EventDetails.js";
 import DetailsOfEvent from "./components/user/Dashboard/DetailsOfEvent.js";
+import UserList from "./components/user/Dashboard/UserList.js";
 import PrivateRoute from "./PrivateRoute/index.jsx";
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
             }
           />
           <Route path="/user/myevents" element={<MyEvents />} />
+          <Route path="/user/user-list" element={<UserList />} />
           <Route path="/user/profile" element={<MyProfile />} />
           <Route path="/user/logout" element={<LogoutUser />} />
           <Route path="/user/event/:eid" element={<DetailsOfEvent />} />

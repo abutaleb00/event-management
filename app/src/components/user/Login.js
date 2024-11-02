@@ -40,7 +40,7 @@ const Login = () => {
         if (res.success === true) {
           setuserLogin(res.success);
           setResponseMessage(res.message);
-          localStorage.setItem("token", res.token);
+          localStorage.setItem("token", res.token)
           localStorage.setItem("isLogged", res.success);
           navigate("/user/myevents");
         } else {
