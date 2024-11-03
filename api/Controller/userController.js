@@ -467,6 +467,51 @@ router.get("/userlist/", (req, res) => {
     });
   }
 });
+//get list of guest
+router.get("/guestlist/", (req, res) => {
+  try {
+    let tokenHeader = process.env.TOKEN_HEADER_KEY;
+    let tokenSecrete = process.env.JWT_SECRET_KEY;
+
+    // validate the token
+    const token = req.header(tokenHeader);
+    const verified = jwt.verify(token, tokenSecrete);
+    if (verified) {
+      var userList = `SELECT * FROM guests`;
+      db.query(userList, (error, results) => {
+        if (error) {
+          res.json({
+            success: false,
+            error,
+          });
+        } else {
+          if (results.length === 0) {
+            res.json({
+              success: false,
+              message: "No User Found",
+            });
+          } else {
+            res.json({
+              success: true,
+              results,
+              total: results?.length,
+            });
+          }
+        }
+      });
+    } else {
+      res.json({
+        success: false,
+        error,
+      });
+    }
+  } catch (error) {
+    res.json({
+      success: false,
+      error,
+    });
+  }
+});
 
 // get guest by user id
 router.get("/guests/:userid", (req, res) => {
