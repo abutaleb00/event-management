@@ -32,9 +32,11 @@ const Header = () => {
             <Link className="nav-item nav-link" to="/user/profile">
               My Profile
             </Link>
-            <Link className="nav-item nav-link" to="/user/user-list">
-              User List
-            </Link>
+            {localStorage.getItem('userrole') === "admin" &&
+              <Link className="nav-item nav-link" to="/user/user-list">
+                User List
+              </Link>
+            }
             <Link className="nav-item nav-link" to="/user/logout">
               Logout
             </Link>

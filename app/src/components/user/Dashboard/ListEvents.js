@@ -9,6 +9,7 @@ const EventList = (props) => {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
+    console.log("eee")
     if (token !== null || undefined) {
       const options = {
         method: "POST",
@@ -35,6 +36,7 @@ const EventList = (props) => {
   }, [navigate, token]);
 
   useEffect(() => {
+    console.log("eee")
     if (userAuth) {
       const options = {
         method: "GET",

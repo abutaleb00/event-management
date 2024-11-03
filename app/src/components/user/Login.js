@@ -20,7 +20,27 @@ const Login = () => {
   const addPassword = (e) => {
     setKalyan(e.target.value);
   };
+  const Auth = (token) => {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        nani_header_key: token,
+      },
+    };
+    fetch("http://localhost:3095/user/auth/", options)
+      .then((response) => response.json())
+      .then((res) => {
+        localStorage.setItem("userrole", res?.user[0]?.user_role)
+        if (res?.user[0]?.user_role === "admin") {
+          navigate("/user/user-list");
+        } else {
 
+          navigate("/user/profile");
+        }
+        // return res;
+      });
+  }
   const submitTheFrom = (e) => {
     e.preventDefault();
 
@@ -38,11 +58,11 @@ const Login = () => {
       .then((response) => response.json())
       .then((res) => {
         if (res.success === true) {
+          Auth(res.token)
           setuserLogin(res.success);
           setResponseMessage(res.message);
           localStorage.setItem("token", res.token)
           localStorage.setItem("isLogged", res.success);
-          navigate("/user/myevents");
         } else {
           toast.error(`${res.message}`);
           setuserLogin(res.success);

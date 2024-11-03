@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 const Register = () => {
   const [isGuest, setisGuest] = useState(false);
   const [userCreated, setUserCreated] = useState(false);
+  const [userFailed, setUserFailed] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
   const [prefix, setPrefix] = useState("Mr.");
   const [state, setState] = useState({
@@ -39,8 +40,13 @@ const Register = () => {
     fetch("http://localhost:3095/user/create/", options)
       .then((response) => response.json())
       .then((res) => {
-        setUserCreated(res.success);
-        setResponseMessage(res.message);
+        if (res.success === true) {
+          setUserCreated(res.success);
+          setResponseMessage(res.message);
+        }else if(res.success === false) {
+          setUserFailed(true);
+          setResponseMessage(res.message);
+        }
       });
   };
   useEffect(() => {
@@ -77,19 +83,26 @@ const Register = () => {
                   <b>Please Fill Name and Contact Info Here</b>
                 </h5>
               </div>
-              {userCreated ? (
+              {userCreated && (
                 <>
                   <div
-                    className={`alert alert-${
-                      userCreated ? "success" : "danger"
-                    }`}
+                    className={`alert alert-${userCreated ? "success" : "danger"
+                      }`}
                     role="alert"
                   >
                     {responseMessage}
                   </div>
                 </>
-              ) : (
-                ""
+              )}
+              {userFailed && (
+                <>
+                  <div
+                    className={`alert alert-danger`}
+                    role="alert"
+                  >
+                    {responseMessage}
+                  </div>
+                </>
               )}
               <hr />
               <form onSubmit={registerUser}>
@@ -253,7 +266,7 @@ const Register = () => {
                           }
                           className="custom-select my-1 mr-sm-2"
                           id="gender"
-                          value={state?.memberType}
+                          value={state?.gender}
                         >
                           <option selected>Choose Member Type</option>
                           <option value="Male">Male</option>
@@ -267,7 +280,9 @@ const Register = () => {
                           className="form-control"
                           id="age"
                           placeholder="Enter Age"
-                          // onChange={(e) => setInputPassword(e.target.value)}
+                          onChange={(e) =>
+                            setGuest({ ...guest, age: e.target.value })
+                          }
                         />
                       </div>
                     </>

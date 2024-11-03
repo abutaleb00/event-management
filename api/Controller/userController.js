@@ -501,6 +501,39 @@ router.get("/guests/:userid", (req, res) => {
     });
   }
 });
+// get guest by user id
+router.get("/payments/:userid", (req, res) => {
+  try {
+    const userid = req.params.userid;
+    // check existing user
+    var checkExisting = `SELECT * FROM payments WHERE user_id='${userid}'`;
+    db.query(checkExisting, (error, results) => {
+      if (error) {
+        res.json({
+          success: false,
+          error,
+        });
+      } else {
+        if (results.length != 0) {
+          res.json({
+            success: true,
+            results,
+          });
+        } else {
+          res.json({
+            success: false,
+            message: "Payment Not Found!, try again!",
+          });
+        }
+      }
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+      error,
+    });
+  }
+});
 
 // Search User
 router.get("/search/", (req, res) => {

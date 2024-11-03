@@ -52,6 +52,25 @@ const UserList = () => {
         }
       });
   };
+  const getPaymentList = (guestid) => {
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        nani_header_key: token,
+      },
+    };
+    fetch(`http://localhost:3095/user/payments/${guestid}`, options)
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.success === true) {
+          // setGuestsList(res.results);
+          console.log("payment", res)
+        } else {
+          toast.error(`${res.message}`);
+        }
+      });
+  };
   useEffect(() => {
     if (token !== null || undefined) {
       getuserList();
@@ -99,7 +118,7 @@ const UserList = () => {
                     <td>{v?.have_guest === 0 ? "No" : "yes"}</td>
                     <td>
                       {v?.payment === 1 ? (
-                        <span className="text-success">Paid</span>
+                        <span onClick={() => getPaymentList(v?.user_id)} className="text-success">Paid</span>
                       ) : (
                         <span className="text-danger">Unpaid</span>
                       )}

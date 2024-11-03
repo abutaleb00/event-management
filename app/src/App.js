@@ -20,11 +20,7 @@ const App = () => {
         <Routes>
           <Route
             path="/user/events"
-            element={
-              <PrivateRoute>
-                <EventList />
-              </PrivateRoute>
-            }
+            element={<EventList />}
           />
           <Route path="/user/myevents" element={<MyEvents />} />
           <Route path="/user/user-list" element={<UserList />} />
