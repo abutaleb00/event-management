@@ -44,7 +44,7 @@ const Home = () => {
         <hr />
         <br />
         <div className="text-center">
-          <p>Copy @ Ganesh Bondla - 2023</p>
+          <p>Copy @ ঢাকাস্থ চন্দনাইশবাসী - 2024</p>
         </div>
       </div>
     </>

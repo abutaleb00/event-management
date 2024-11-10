@@ -18,7 +18,6 @@ const Events = () => {
     <>
       <Header />
       <div className="container mt-3 pt-3">
-        <h1>Events</h1>
         <div className="row p-2">
           {listOfEvents !== undefined && listOfEvents?.length !== 0 ? (
             <EventsList eventsList={listOfEvents} />
@@ -27,6 +26,12 @@ const Events = () => {
               <p>Loading Events....</p>
             </>
           )}
+        </div>
+        <br />
+        <hr />
+        <br />
+        <div className="text-center">
+          <p>Copy @ ঢাকাস্থ চন্দনাইশবাসী - 2024</p>
         </div>
       </div>
     </>

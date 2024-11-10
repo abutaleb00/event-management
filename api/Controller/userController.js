@@ -75,7 +75,17 @@ router.post("/create/", (req, res) => {
     const userName = req.body.userName;
     const userEmail = req.body.userEmail;
     const userMobile = req.body.userMobile;
+    const memberType = req.body.memberType;
+    const membershipNumber = req.body.membershipNumber;
+    const haveGuest = req.body.haveGuest;
+    const userRole = req.body.userRole;
+    const createdDate = req.body.createdDate;
+    const payment = req.body.payment;
     const userPassword = req.body.userPassword;
+    const guestName = req.body.guestName;
+    const relation = req.body.relation;
+    const gender = req.body.gender;
+    const age = req.body.age;
 
     // check existing user
     var checkExisting = `SELECT * FROM users WHERE user_email='${userEmail}' AND isDeleted='0'`;
@@ -88,8 +98,10 @@ router.post("/create/", (req, res) => {
       } else {
         if (results.length == 0) {
           //insert user
-          var insertData = `INSERT INTO users(user_id, user_name, user_email, user_mobile, user_password, status, isDeleted)
-                VALUES('${userid}','${userName}','${userEmail}','${userMobile}','${userPassword}','0','0')`;
+          var insertData = `INSERT INTO users(user_id, user_name, user_email, user_mobile, member_type, membership_number, have_guest, user_password, user_role, create_date, payment, status, isDeleted)
+                VALUES(${userid},'${userName}','${userEmail}','${userMobile}', ${memberType}, ${membershipNumber}, ${haveGuest}, '${userPassword}', '${userRole}', '${createdDate}', ${payment}, '0','0')`;
+          var insertguest = `INSERT INTO guests(user_id, guest_name, relation, gender, age)
+                VALUES(${userid},'${guestName}','${relation}','${gender}', ${age})`;
           db.query(insertData, (error, results) => {
             if (error) {
               res.json({
@@ -97,10 +109,26 @@ router.post("/create/", (req, res) => {
                 error,
               });
             } else {
-              res.json({
-                success: true,
-                message: "User Registered Success.",
-              });
+              if (req.body.haveGuest === 1) {
+                db.query(insertguest, (error, results) => {
+                  if (error) {
+                    res.json({
+                      success: false,
+                      error,
+                    });
+                  } else {
+                    res.json({
+                      success: true,
+                      message: "User Registered Success.",
+                    });
+                  }
+                });
+              } else {
+                res.json({
+                  success: true,
+                  message: "User Registered Success.",
+                });
+              }
             }
           });
         } else {
@@ -388,6 +416,162 @@ router.get("/events/", async (req, res) => {
         error,
       });
     }
+  } catch (error) {
+    res.json({
+      success: false,
+      error,
+    });
+  }
+});
+//get list of user
+router.get("/userlist/", (req, res) => {
+  try {
+    let tokenHeader = process.env.TOKEN_HEADER_KEY;
+    let tokenSecrete = process.env.JWT_SECRET_KEY;
+
+    // validate the token
+    const token = req.header(tokenHeader);
+    const verified = jwt.verify(token, tokenSecrete);
+    if (verified) {
+      var userList = `SELECT * FROM users`;
+      db.query(userList, (error, results) => {
+        if (error) {
+          res.json({
+            success: false,
+            error,
+          });
+        } else {
+          if (results.length === 0) {
+            res.json({
+              success: false,
+              message: "No User Found",
+            });
+          } else {
+            res.json({
+              success: true,
+              results,
+            });
+          }
+        }
+      });
+    } else {
+      res.json({
+        success: false,
+        error,
+      });
+    }
+  } catch (error) {
+    res.json({
+      success: false,
+      error,
+    });
+  }
+});
+//get list of guest
+router.get("/guestlist/", (req, res) => {
+  try {
+    let tokenHeader = process.env.TOKEN_HEADER_KEY;
+    let tokenSecrete = process.env.JWT_SECRET_KEY;
+
+    // validate the token
+    const token = req.header(tokenHeader);
+    const verified = jwt.verify(token, tokenSecrete);
+    if (verified) {
+      var userList = `SELECT * FROM guests`;
+      db.query(userList, (error, results) => {
+        if (error) {
+          res.json({
+            success: false,
+            error,
+          });
+        } else {
+          if (results.length === 0) {
+            res.json({
+              success: false,
+              message: "No User Found",
+            });
+          } else {
+            res.json({
+              success: true,
+              results,
+              total: results?.length,
+            });
+          }
+        }
+      });
+    } else {
+      res.json({
+        success: false,
+        error,
+      });
+    }
+  } catch (error) {
+    res.json({
+      success: false,
+      error,
+    });
+  }
+});
+
+// get guest by user id
+router.get("/guests/:userid", (req, res) => {
+  try {
+    const userid = req.params.userid;
+    // check existing user
+    var checkExisting = `SELECT * FROM guests WHERE user_id='${userid}'`;
+    db.query(checkExisting, (error, results) => {
+      if (error) {
+        res.json({
+          success: false,
+          error,
+        });
+      } else {
+        if (results.length != 0) {
+          res.json({
+            success: true,
+            results,
+          });
+        } else {
+          res.json({
+            success: false,
+            message: "User Not Found!, try again!",
+          });
+        }
+      }
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+      error,
+    });
+  }
+});
+// get guest by user id
+router.get("/payments/:userid", (req, res) => {
+  try {
+    const userid = req.params.userid;
+    // check existing user
+    var checkExisting = `SELECT * FROM payments WHERE user_id='${userid}'`;
+    db.query(checkExisting, (error, results) => {
+      if (error) {
+        res.json({
+          success: false,
+          error,
+        });
+      } else {
+        if (results.length != 0) {
+          res.json({
+            success: true,
+            results,
+          });
+        } else {
+          res.json({
+            success: false,
+            message: "Payment Not Found!, try again!",
+          });
+        }
+      }
+    });
   } catch (error) {
     res.json({
       success: false,

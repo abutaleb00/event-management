@@ -29,7 +29,7 @@ const DetailsOfEvent = () => {
             setUserAuth(res.success);
             setUserId(res.user[0].user_id);
           } else {
-            localStorage.removeItem("token");
+            // localStorage.removeItem("token");
             navigate("/login");
           }
         });

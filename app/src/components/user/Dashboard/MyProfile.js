@@ -22,7 +22,7 @@ const MyProfile = () => {
           if (res.success === true) {
             setUserAuth(res.success);
           } else {
-            localStorage.removeItem("token");
+            // localStorage.removeItem("token");
             navigate("/login");
           }
         });

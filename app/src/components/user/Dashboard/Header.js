@@ -8,7 +8,7 @@ const Header = () => {
     <div className="container-fluid">
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <Link className="navbar-brand" to="/">
-          Events POC
+          চন্দনাইশ সমিতি-ঢাকা
         </Link>
         <button
           className="navbar-toggler"
@@ -24,7 +24,7 @@ const Header = () => {
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div className="navbar-nav">
             <Link className="nav-item nav-link" to="/user/events">
-              ListEvents
+              Events List
             </Link>
             <Link className="nav-item nav-link" to="/user/myevents">
               My Events
@@ -32,6 +32,19 @@ const Header = () => {
             <Link className="nav-item nav-link" to="/user/profile">
               My Profile
             </Link>
+            {localStorage.getItem('userrole') === "admin" &&
+            <>
+              <Link className="nav-item nav-link" to="/payment/payment-list">
+                Trasnsaction List
+              </Link>
+              <Link className="nav-item nav-link" to="/user/guest-list">
+                Guest List
+              </Link>
+              <Link className="nav-item nav-link" to="/user/user-list">
+                User List
+              </Link>
+              </>
+            }
             <Link className="nav-item nav-link" to="/user/logout">
               Logout
             </Link>

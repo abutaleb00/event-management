@@ -11,7 +11,8 @@ export const CheckAuth = () => {
     fetch("http://localhost:3095/user/auth/", options)
       .then((response) => response.json())
       .then((res) => {
-        return res;
+        localStorage.setItem("userrole", res?.user[0]?.user_role)
+        // return res;
       });
   }
 };

@@ -5,10 +5,10 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 const Header = () => {
   return (
-    <div className="container-fluid">
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div className="container">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-info text-white">
         <Link className="navbar-brand" to="/">
-          Events POC
+        চন্দনাইশ সমিতি-ঢাকা
         </Link>
         <button
           className="navbar-toggler"
@@ -21,22 +21,26 @@ const Header = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div
+          className="collapse navbar-collapse justify-content-end"
+          id="navbarNavAltMarkup"
+        >
           <div className="navbar-nav">
-            <Link className="nav-item nav-link" to="/">
+            <Link className="nav-item nav-link text-white" to="/">
               Home
             </Link>
-            <Link className="nav-item nav-link" to="/events">
+            <Link className="nav-item nav-link text-white" to="/events">
               Events
             </Link>
-            <Link className="nav-item nav-link" to="/login">
+            <Link className="nav-item nav-link text-white" to="/login">
               Login
             </Link>
-            <Link className="nav-item nav-link" to="/register">
+            <Link className="nav-item nav-link text-white" to="/register">
               Register
             </Link>
           </div>
         </div>
+        <div></div>
       </nav>
     </div>
   );
