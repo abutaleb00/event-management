@@ -11,7 +11,8 @@ const bookingController = require("./Controller/bookingController");
 
 const userController = require("./Controller/userController");
 
-const paymentController = require("./Controller//paymentController");
+const paymentController = require("./Controller/paymentController");
+const subscriberController = require("./Controller/subscriberController");
 
 var app = express();
 
@@ -34,3 +35,4 @@ app.use("/booking/", bookingController);
 app.use("/user/", userController);
 
 app.use("/payment/", paymentController);
+app.use("/subscriber/", subscriberController);

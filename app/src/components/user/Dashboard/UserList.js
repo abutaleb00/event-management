@@ -34,6 +34,35 @@ const UserList = () => {
         }
       });
   };
+  const createGuestList = () => {
+    const senddata = {
+      event_id: "1",
+      subscribe_id: "1",
+      create_date: "10/11/2024",
+      package_name: "Daily Package",
+      package_desc: "This is the simple daily package for general user",
+      amount: "300",
+      discount: "0",
+      validity: "30",
+      status: "1"
+    }
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(senddata),
+    };
+    fetch(`http://localhost:3095/subscriber/create-sub/`, options)
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.success === true) {
+          setGuestsList(res.results);
+        } else {
+          toast.error(`${res.message}`);
+        }
+      });
+  };
   const getGuestList = (guestid) => {
     const options = {
       method: "GET",
@@ -139,6 +168,7 @@ const UserList = () => {
               })}
           </tbody>
         </table>
+        <button onClick={()=> createGuestList()}>Subscribe</button>
         {isModalOpen && (
           <Modal onClose={() => setModalOpen(false)}>
             <h3>Guest List</h3>
