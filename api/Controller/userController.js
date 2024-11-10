@@ -430,4 +430,40 @@ router.get("/search/", (req, res) => {
   }
 });
 
+
+// get all user by id
+router.get("/details/:userid", (req, res) => {
+  try {
+    const userid = req.params.userid;
+    // check existing user
+    var checkExisting = `SELECT * FROM users WHERE user_id='${userid}' AND isDeleted='0'`;
+    db.query(checkExisting, (error, results) => {
+      if (error) {
+        res.json({
+          success: false,
+          error,
+        });
+      } else {
+        if (results.length != 0) {
+          res.json({
+            success: true,
+            results,
+          });
+        } else {
+          res.json({
+            success: false,
+            message: "User Not Found!, try again!",
+          });
+        }
+      }
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+      error,
+    });
+  }
+});
+
+
 module.exports = router;
