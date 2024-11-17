@@ -69,160 +69,160 @@ router.post("/auth/", (req, res) => {
 });
 
 // Create new User
-// router.post("/create/", (req, res) => {
-//   try {
-//     const userid = Math.floor(1000000 * Math.random() + 9999999);
-//     const userName = req.body.userName;
-//     const userEmail = req.body.userEmail;
-//     const userMobile = req.body.userMobile;
-//     const memberType = req.body.memberType;
-//     const membershipNumber = req.body.membershipNumber;
-//     const haveGuest = req.body.haveGuest;
-//     const userRole = req.body.userRole;
-//     const createdDate = req.body.createdDate;
-//     const payment = req.body.payment;
-//     const userPassword = req.body.userPassword;
-//     const guestName = req.body.guestName;
-//     const relation = req.body.relation;
-//     const gender = req.body.gender;
-//     const age = req.body.age;
-
-//     // check existing user
-//     var checkExisting = `SELECT * FROM users WHERE user_email='${userEmail}' AND isDeleted='0'`;
-//     db.query(checkExisting, (error, results) => {
-//       if (error) {
-//         res.json({
-//           success: false,
-//           error,
-//         });
-//       } else {
-//         if (results.length == 0) {
-//           //insert user
-//           var insertData = `INSERT INTO users(user_id, user_name, user_email, user_mobile, member_type, membership_number, have_guest, user_password, user_role, create_date, payment, status, isDeleted)
-//                 VALUES(${userid},'${userName}','${userEmail}','${userMobile}', ${memberType}, ${membershipNumber}, ${haveGuest}, '${userPassword}', '${userRole}', '${createdDate}', ${payment}, '0','0')`;
-//           var insertguest = `INSERT INTO guests(user_id, guest_name, relation, gender, age)
-//                 VALUES(${userid},'${guestName}','${relation}','${gender}', ${age})`;
-//           db.query(insertData, (error, results) => {
-//             if (error) {
-//               res.json({
-//                 success: false,
-//                 error,
-//               });
-//             } else {
-//               if (req.body.haveGuest === 1) {
-//                 db.query(insertguest, (error, results) => {
-//                   if (error) {
-//                     res.json({
-//                       success: false,
-//                       error,
-//                     });
-//                   } else {
-//                     res.json({
-//                       success: true,
-//                       message: "User Registered Success.",
-//                     });
-//                   }
-//                 });
-//               } else {
-//                 res.json({
-//                   success: true,
-//                   message: "User Registered Success.",
-//                 });
-//               }
-//             }
-//           });
-//         } else {
-//           res.json({
-//             success: false,
-//             message: "User Already registered, try to login",
-//           });
-//         }
-//       }
-//     });
-//   } catch (error) {
-//     res.json({
-//       success: false,
-//       error,
-//     });
-//   }
-// });
-
-router.post("/create", (req, res) =>{
-  try{
+router.post("/create/", (req, res) => {
+  try {
     const userid = Math.floor(1000000 * Math.random() + 9999999);
-    const userName = req.body.user_name;
-    const userEmail = req.body.user_email;
-    const userMobile = req.body.user_mobile;
-    const memberType = req.body.member_type;
-    const membershipNumber = req.body.membership_number;
-    const haveGuest = req.body.have_guest;
-    const userRole = req.body.user_role;
-    const createdDate = req.body.create_date;
+    const userName = req.body.userName;
+    const userEmail = req.body.userEmail;
+    const userMobile = req.body.userMobile;
+    const memberType = req.body.memberType;
+    const membershipNumber = req.body.membershipNumber;
+    const haveGuest = req.body.haveGuest;
+    const userRole = req.body.userRole;
+    const createdDate = req.body.createdDate;
     const payment = req.body.payment;
-    const userPassword = req.body.user_password;
+    const userPassword = req.body.userPassword;
     const guestName = req.body.guestName;
     const relation = req.body.relation;
     const gender = req.body.gender;
     const age = req.body.age;
-    
-    // var checkExisting = `SELECT * FROM registerpage WHERE user_email = '${userEmail}' AND isDeleted='0'`;
+
+    // check existing user
+    var checkExisting = `SELECT * FROM users WHERE user_email='${userEmail}' AND isDeleted='0'`;
     db.query(checkExisting, (error, results) => {
-      if(error){
+      if (error) {
         res.json({
-          success:false,
+          success: false,
           error,
         });
-      }else{
-        if(results.length ==0){
-          var insertData = `INSERT INTO registerpage(user_id,user_name,user_email,user_mobile,member_type,membership_number,have_guest,user_password,user_role,status,create_date,payment,isDeleted)
-          VALUES(${userid}, '${userName}', '${userEmail}',${userMobile}, ${memberType}, ${membershipNumber},${haveGuest},'${userPassword}','${userRole}', '0','${createdDate}',${payment}, '0')`;
-
+      } else {
+        if (results.length == 0) {
+          //insert user
+          var insertData = `INSERT INTO users(user_id, user_name, user_email, user_mobile, member_type, membership_number, have_guest, user_password, user_role, create_date, payment, status, isDeleted)
+                VALUES(${userid},'${userName}','${userEmail}','${userMobile}', ${memberType}, ${membershipNumber}, ${haveGuest}, '${userPassword}', '${userRole}', '${createdDate}', ${payment}, '0','0')`;
           var insertguest = `INSERT INTO guests(user_id, guest_name, relation, gender, age)
-          VALUES(${userid},'${guestName}','${relation}','${gender}',${age})`;
+                VALUES(${userid},'${guestName}','${relation}','${gender}', ${age})`;
           db.query(insertData, (error, results) => {
-            if(error){
+            if (error) {
               res.json({
-                success:false,
+                success: false,
                 error,
               });
-            }else{
-              if(req.body.haveGuest === 1){
+            } else {
+              if (req.body.haveGuest === 1) {
                 db.query(insertguest, (error, results) => {
-                  if(error){
+                  if (error) {
                     res.json({
-                      success:false,
+                      success: false,
                       error,
                     });
-                  }else{
+                  } else {
                     res.json({
-                      success:true,
-                      message:"User Registered Success."
+                      success: true,
+                      message: "User Registered Success.",
                     });
                   }
                 });
-              }else{
+              } else {
                 res.json({
-                  success:true,
-                  message:"User Registered Success.",
-                })
+                  success: true,
+                  message: "User Registered Success.",
+                });
               }
             }
           });
-        }else{
+        } else {
           res.json({
-            success:false,
-            message:"User Already registered, try to login",
+            success: false,
+            message: "User Already registered, try to login",
           });
         }
       }
     });
-  }catch(error){
+  } catch (error) {
     res.json({
-      success:false,
+      success: false,
       error,
     });
   }
 });
+
+// router.post("/create", (req, res) =>{
+//   try{
+//     const userid = Math.floor(1000000 * Math.random() + 9999999);
+//     const userName = req.body.user_name;
+//     const userEmail = req.body.user_email;
+//     const userMobile = req.body.user_mobile;
+//     const memberType = req.body.member_type;
+//     const membershipNumber = req.body.membership_number;
+//     const haveGuest = req.body.have_guest;
+//     const userRole = req.body.user_role;
+//     const createdDate = req.body.create_date;
+//     const payment = req.body.payment;
+//     const userPassword = req.body.user_password;
+//     const guestName = req.body.guestName;
+//     const relation = req.body.relation;
+//     const gender = req.body.gender;
+//     const age = req.body.age;
+    
+//     // var checkExisting = `SELECT * FROM registerpage WHERE user_email = '${userEmail}' AND isDeleted='0'`;
+//     db.query(checkExisting, (error, results) => {
+//       if(error){
+//         res.json({
+//           success:false,
+//           error,
+//         });
+//       }else{
+//         if(results.length ==0){
+//           var insertData = `INSERT INTO registerpage(user_id,user_name,user_email,user_mobile,member_type,membership_number,have_guest,user_password,user_role,status,create_date,payment,isDeleted)
+//           VALUES(${userid}, '${userName}', '${userEmail}',${userMobile}, ${memberType}, ${membershipNumber},${haveGuest},'${userPassword}','${userRole}', '0','${createdDate}',${payment}, '0')`;
+
+//           var insertguest = `INSERT INTO guests(user_id, guest_name, relation, gender, age)
+//           VALUES(${userid},'${guestName}','${relation}','${gender}',${age})`;
+//           db.query(insertData, (error, results) => {
+//             if(error){
+//               res.json({
+//                 success:false,
+//                 error,
+//               });
+//             }else{
+//               if(req.body.haveGuest === 1){
+//                 db.query(insertguest, (error, results) => {
+//                   if(error){
+//                     res.json({
+//                       success:false,
+//                       error,
+//                     });
+//                   }else{
+//                     res.json({
+//                       success:true,
+//                       message:"User Registered Success."
+//                     });
+//                   }
+//                 });
+//               }else{
+//                 res.json({
+//                   success:true,
+//                   message:"User Registered Success.",
+//                 })
+//               }
+//             }
+//           });
+//         }else{
+//           res.json({
+//             success:false,
+//             message:"User Already registered, try to login",
+//           });
+//         }
+//       }
+//     });
+//   }catch(error){
+//     res.json({
+//       success:false,
+//       error,
+//     });
+//   }
+// });
 
 
 //Create Subscribe User Package
