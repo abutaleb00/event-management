@@ -587,13 +587,13 @@ const Register = () => {
           </div>
         </div>
       </div>
-      <div className="container-fluid bg-image">
+      <div className="container-fluid bg-image mb-4">
         <div className="container">
         <div className="row">
           <div className="col-md-12 ">
             <div className="mazban-text text-center text-white py-4 font-weight-bold font-italic">
               <h1>মেজবান ও মিলনমেলা - ২০২৫ <br />চন্দনাইশবাসী</h1>
-              
+
               <p>১৮ জানুয়ারী ২০২৫, রোজঃ শনিবার</p>
             </div>
           </div>
