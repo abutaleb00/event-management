@@ -13,6 +13,8 @@ const userController = require("./Controller/userController");
 
 const paymentController = require("./Controller/paymentController");
 const subscriberController = require("./Controller/subscriberController");
+const packageController = require("./Controller/packageController");
+
 
 var app = express();
 
@@ -36,3 +38,5 @@ app.use("/user/", userController);
 
 app.use("/payment/", paymentController);
 app.use("/subscriber/", subscriberController);
+app.use("/userList/", userController);
+app.use("/package-list/",packageController);
